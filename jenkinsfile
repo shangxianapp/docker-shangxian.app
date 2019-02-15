@@ -12,9 +12,16 @@ pipeline {
             }
         }
 
-        stage('Deploy') {
+        stage('Sync html') {
             steps {
-                sshPublisher(publishers: [sshPublisherDesc(configName: 'sg02', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '/bin/sh $WWWROOT_DIR/shangxian.app/deploy.sh', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '$WWWROOT_DIR/shangxian.app', remoteDirectorySDF: false, removePrefix: 'html', sourceFiles: 'html/**/*')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+                sshPublisher(publishers: [sshPublisherDesc(configName: 'sg02', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: 'echo "sync success"', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: "$WWWROOT_DIR/shangxian.app", remoteDirectorySDF: false, removePrefix: 'html', sourceFiles: 'html/**/*')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: true)])
+            }
+        }
+
+        stage('Reload nginx') {
+            steps {
+                sh "mv nginx.conf shangxian.app.conf"
+                sshPublisher(publishers: [sshPublisherDesc(configName: 'sg02', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: "/bin/sh $DOCKER_NGINX_DIR/reload.sh", execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: "$DOCKER_NGINX_VHOST_DIR", remoteDirectorySDF: false, removePrefix: '', sourceFiles: 'shangxian.app.conf')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: true)])
             }
         }
     }
