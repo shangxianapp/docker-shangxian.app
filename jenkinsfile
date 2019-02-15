@@ -6,11 +6,11 @@ pipeline {
     }
 
     stages {
-        stage('Clone') {
-            steps {
-                checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'shangxianapp-github-xuexb-ssh-key', url: 'git@github.com:shangxianapp/docker-shangxian.app.git']]]
-            }
-        }
+        // stage('Clone') {
+        //     steps {
+        //         checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'shangxianapp-github-xuexb-ssh-key', url: 'git@github.com:shangxianapp/docker-shangxian.app.git']]]
+        //     }
+        // }
 
         stage('Sync html') {
             steps {
