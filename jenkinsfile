@@ -13,10 +13,8 @@ pipeline {
         }
 
         stage('Deploy') {
-            stage('sg02') {
-                steps {
-                    sshPublisher(publishers: [sshPublisherDesc(configName: 'sg02', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '/bin/sh $WWWROOT_DIR/shangxian.app/deploy.sh', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '$WWWROOT_DIR/shangxian.app', remoteDirectorySDF: false, removePrefix: 'html', sourceFiles: 'html/**/*')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
-                }
+            steps {
+                sshPublisher(publishers: [sshPublisherDesc(configName: 'sg02', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '/bin/sh $WWWROOT_DIR/shangxian.app/deploy.sh', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '$WWWROOT_DIR/shangxian.app', remoteDirectorySDF: false, removePrefix: 'html', sourceFiles: 'html/**/*')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
             }
         }
     }
