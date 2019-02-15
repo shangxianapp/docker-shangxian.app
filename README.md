@@ -1,4 +1,4 @@
-# docker-shangxian.app
+# Shangxian APP
 
 - 使用 Jenkins 编译，Docker 线上部署。
 - 新加坡、日本、北京多服务器部署。
